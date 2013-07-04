@@ -44,4 +44,18 @@ describe "StaticPages" do
     end
   end
 
+  describe "Contanct page" do
+    
+    it "should have content 'Contanct'" do
+      visit "/static_pages/contact"
+      page.should have_selector('h1', :text => "Contanct")
+    end
+
+    it "should have the right title" do
+      visit '/static_pages/contact'
+      page.should have_selector('title', 
+      :text => "Ruby on Rails Tutorial Sample App | Contanct ")
+    end
+  end
+  
 end

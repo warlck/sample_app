@@ -5,8 +5,11 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development, :test do
-	gem 'sqlite3'
 	gem 'rspec-rails', '2.11.0'
+	gem 'guard-rspec'
+	gem 'guard-spork'
+	gem 'childprocess'
+	gem 'spork'
 end
 
 
@@ -26,11 +29,13 @@ gem 'jquery-rails'
 
 group :test do
 	gem 'capybara', '1.1.2'
+	gem 'rb-inotify'
+	gem 'libnotify'
 end
 
-group :production do
-	gem 'pg'
-end
+# To use PostgreSQL in all three environments
+gem 'pg'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

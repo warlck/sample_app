@@ -1,8 +1,12 @@
 SampleApp::Application.routes.draw do
-  get "static_pages/home"
-  get "static_pages/help"
-  get "static_pages/about"
-  get "static_pages/contact"
+  get "users/new"
+
+  root to: 'static_pages#home'
+  match '/help', to: 'static_pages#help'
+  match '/about',to: "static_pages#about"
+  match '/contact', to: "static_pages#contact"
+  
+  match '/signup', to: "users#new"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -21,12 +25,12 @@ SampleApp::Application.routes.draw do
   # Sample resource route with options:
   #   resources :products do
   #     member do
-  #       get 'short'
+  #       match 'short'
   #       post 'toggle'
   #     end
   #
   #     collection do
-  #       get 'sold'
+  #       match 'sold'
   #     end
   #   end
 
@@ -40,7 +44,7 @@ SampleApp::Application.routes.draw do
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get 'recent', :on => :collection
+  #       match 'recent', :on => :collection
   #     end
   #   end
 
@@ -58,6 +62,6 @@ SampleApp::Application.routes.draw do
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
+  # Note: This route will make all actions in every controller accessible via match requests.
   # match ':controller(/:action(/:id))(.:format)'
 end

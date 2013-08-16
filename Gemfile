@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
+gem 'faker'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -40,6 +43,7 @@ group :test do
 	gem 'factory_girl_rails'
 	gem 'cucumber-rails', :require => false
 	gem 'database_cleaner'
+	gem 'launchy'
 end
 
 # To use PostgreSQL in all three environments

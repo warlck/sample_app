@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "User pages" do
 	subject {page}
 
-  describe "index" do
+  describe "index" do   
     let(:user) { FactoryGirl.create(:user) }
 
     before(:each) do    
@@ -47,7 +47,18 @@ describe "User pages" do
         end
 
         it { should_not have_link('delete', href: users_path(admin)) }
+
+        describe "should not be be able to delete (him/her) self" do
+          it {should_not have_link('delele', href: users_path(admin))}
+
+          describe "after submitting DELETE request" do
+            before  { delete user_path(admin)} 
+            specify { User.find_by_email(admin.email).should_not be_nil }
+          end
+          
+        end
       end
+
     end
   end
 
@@ -96,10 +107,10 @@ describe "User pages" do
 
   	describe "with valid information" do 
   		before do 
-  			fill_in "Name",           with: "Example User"
-  			fill_in "Email",          with: "user@example.com"
-  			fill_in "Password",       with: "foobar"
-  			fill_in "Confirmation",   with: "foobar"
+  			fill_in "Name",             with: "Example User"
+  			fill_in "Email",            with: "user@example.com"
+  			fill_in "Password",         with: "foobar"
+  			fill_in "Confirm Password", with: "foobar"
   		end
 
   		it "should create a user" do 
@@ -147,7 +158,7 @@ describe "User pages" do
         fill_in "Name",             with: new_name
         fill_in "Email",            with: new_email
         fill_in "Password",         with: user.password
-        fill_in "Password confirmation", with: user.password
+        fill_in "Confirm Password", with: user.password
         click_button "Save changes"
       end
       

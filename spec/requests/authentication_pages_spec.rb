@@ -3,11 +3,10 @@ require 'spec_helper'
 describe "Authentication" do
 	subject { page }
 	describe "signin page" do
-	before { visit signin_path }
+		before { visit signin_path }
 
-	  it { should have_selector('h1',    text: 'Sign in')}
-	  it { should have_selector('title', text:'Sign in')}
-	
+		it { should have_selector('h1',    text: 'Sign in')}
+		it { should have_selector('title', text:'Sign in')}
 	end
 
 	describe "signin" do
@@ -18,6 +17,8 @@ describe "Authentication" do
 
 			it { should have_selector('title', text: 'Sign in') }
 			it { should have_error_message('Invalid') }
+			it { should_not have_link("Profile")}
+			it { should_not have_link("Settings")}
 
 			describe "after visiting another page" do
 				before { click_link "Home" }
@@ -72,17 +73,27 @@ describe "Authentication" do
 			describe "when attempting to visit a protected page" do
 				before do
 					visit edit_user_path(user)
-					fill_in "Email",    with: user.email
-					fill_in "Password", with: user.password
-					click_button  "Sign in"
+					valid_signin user
 				end
 
-				describe "after signing in" do
-					
+				describe "after signing in" do		
 					it "should render the desired protected page" do
 						page.should have_selector('title', text: 'Edit user')
 					end
+
+					describe "when signing in again" do
+						before 	do
+							delete signout_path
+							valid_signin user
+						end
+						
+						it "should render default (profile page)" do
+							page.should have_selector('title', text: user.name)
+						end
+					end
 				end
+
+
 			end
 		end
 
@@ -109,12 +120,26 @@ describe "Authentication" do
 
 			before { valid_signin non_admin }
 
-			describe "submittinh a DELETE request to Users#destroy action" do
+			describe "submitting a DELETE request to Users#destroy action" do
 				before { delete user_path(user) }
 				specify { response.should redirect_to(root_url)}
 			end
 			
 		end
 
-	end
+		describe "as signed in user" do 
+			let(:user) { FactoryGirl.create(:user)}
+			before {valid_signin user}
+
+			describe "accessing new action" do
+				before { visit signup_path}
+				it { should redirect_to(root_url)}
+			end
+
+			describe "submitting CREATE request"
+				before { post users_path }
+				specify{ response.should redirect_to(root_url)}
+			end	
+		end
+
 end

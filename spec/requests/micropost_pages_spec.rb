@@ -42,4 +42,14 @@ describe "MicropostPages" do
 			end
 		end
 	end
+
+	describe "micropost list" do
+		let!(:wrong_micropost) do 
+			FactoryGirl.create(:micropost, user: FactoryGirl.create(:user))
+		end
+
+		before { visit root_path } 
+		it { should_not have_link('delete', href: micropost_path(wrong_micropost)) }
+
+	end
 end

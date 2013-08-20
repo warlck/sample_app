@@ -26,11 +26,28 @@ describe "Static pages" do
         visit root_path
       end
 
+      it { should have_content("2 microposts") } 
+      it { should have_selector(".characters", text: 'characters left')}
+
       it "should render the user's feed" do
         user.feed.each do |item|
           page.should have_selector("li##{item.id}", text: item.content)
         end
       end
+     
+      describe "with corrent plurization of microposts count on sidebar" do
+        before do 
+          user.microposts.first.delete
+          visit root_path
+        end 
+
+        it { should have_content('1 micropost') }
+        
+      end
+
+
+
+
     end
 
   end

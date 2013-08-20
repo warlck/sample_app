@@ -225,3 +225,11 @@ aside {
 		margin-bottom: 5px;
 	}
 }
+
+/* number of characters left counter */
+.characters {
+	font-size: 0.8em;
+	padding-bottom: 5px;
+	color: $grayLight;
+	float: right;
+}

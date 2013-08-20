@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+$('#micropost_content').keypress(function(e) {
+  var num = 140 - $(this).val().length;
+  
+  if (num === 1)
+     $('.characters').text('1 character left');
+  else 
+  	 $('.characters').text(num + " characters left");
+  });

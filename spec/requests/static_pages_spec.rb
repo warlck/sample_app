@@ -18,6 +18,7 @@ describe "Static pages" do
     it {should_not have_selector 'title', :text => '| Home' }
     
     describe "for signed-in users" do
+
       let(:user) { FactoryGirl.create(:user) }
       before do
         FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
@@ -25,6 +26,8 @@ describe "Static pages" do
         valid_signin user
         visit root_path
       end
+
+
 
       it { should have_content("2 microposts") } 
       it { should have_selector(".characters", text: 'characters left')}
@@ -45,9 +48,17 @@ describe "Static pages" do
         
       end
 
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit root_path
+        end
 
-
-
+        it { should have_link("0 following", href: following_user_path(user)) }
+        it { should have_link("1 followers", href: followers_user_path(user)) }  
+        
+      end
     end
 
   end

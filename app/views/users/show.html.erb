@@ -1,10 +1,12 @@
 <% provide(:title, @user.name) %>
 <div class = "row">
 	<aside class = "span4">
-		<h1>
-			<%= @user.name %>
-			<%= gravatar_for @user, size: 40 %>
-		</h1>
+		<section>
+  			<%= render 'shared/user_info' , object: @user %>
+  		</section>
+       <section>
+        <%= render 'shared/stats' %>
+      </section>
 	</aside>
 
 	<div class="span8">

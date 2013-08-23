@@ -79,7 +79,7 @@ describe "Static pages" do
     it_should_behave_like "all_static_pages"
   end
 
-  describe "Contanct page" do
+  describe "Contact page" do
     before {visit contact_path}
     let(:heading) {'Contact'}
     let(:page_title) {'Contact'}

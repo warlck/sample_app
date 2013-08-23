@@ -1,9 +1,9 @@
   <div class="row">
   	<aside class="span4">
   		<section>
-  			<%= render 'shared/user_info' %>
+  			<%= render 'shared/user_info' , object: current_user %>
   		</section>
-      <section>
+       <section>
         <%= render 'shared/stats' %>
       </section>
   		<section>
